@@ -98,3 +98,98 @@ footer {
     font-size: 13px;
     margin-top: 20px;
 }
+
+Milestone 2: Quiz Page Styling
+
+/* Timer container box */
+#timer-container {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: 220px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Fieldset question cards */
+#quizForm fieldset {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+#quizForm legend {
+    color: #2c3e50;
+    font-size: 1.05rem;
+    padding: 0 5px;
+}
+
+/* Text inputs for fill-in-the-blank */
+.quiz-text-input {
+    width: 280px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    display: block;
+}
+
+.quiz-text-input:focus {
+    border-color: #e67e22;
+    outline: none;
+}
+
+/* Button container and controls */
+.quiz-buttons {
+    margin: 25px 0;
+    display: flex;
+    gap: 12px;
+}
+
+.quiz-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Submit button (Navy theme) */
+#submitBtn {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+#submitBtn:hover {
+    background-color: #1a252f;
+}
+
+/* Reset button (Orange accent) */
+#resetBtn {
+    background-color: #e67e22;
+    color: #ffffff;
+}
+
+#resetBtn:hover {
+    background-color: #d35400;
+}
+
+/* Results display box */
+#results {
+    display: none;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #2c3e50;
+    border-radius: 5px;
+}
+
+#results h2 {
+    color: #2c3e50;
+    margin-top: 0;
+}
