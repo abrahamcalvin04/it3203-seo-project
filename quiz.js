@@ -5,28 +5,43 @@ var totalSeconds = 600;
 var timerVar = null;
 var isSubmitted = false;
 
-// start timer when page loads
-window.onload = function() {
+// ensure elements are accessible as soon as HTML parses
+document.addEventListener("DOMContentLoaded", function() {
     startTimer();
 
-    // button events
-    document.getElementById("submitBtn").onclick = function() {
-        if (!isSubmitted) {
-            gradeQuiz();
-        }
-    };
+    // submit button click
+    var submitButton = document.getElementById("submitBtn");
+    if (submitButton) {
+        submitButton.addEventListener("click", function() {
+            if (!isSubmitted) {
+                gradeQuiz();
+            }
+        });
+    }
 
-    document.getElementById("resetBtn").onclick = function() {
-        resetAll();
-    };
-};
+    // reset button click
+    var resetButton = document.getElementById("resetBtn");
+    if (resetButton) {
+        resetButton.addEventListener("click", function() {
+            resetAll();
+        });
+    }
+});
 
 // countdown timer function
 function startTimer() {
+    // clear any existing timer instance first
+    if (timerVar !== null) {
+        clearInterval(timerVar);
+    }
+
     timerVar = setInterval(function() {
         if (totalSeconds <= 0) {
             clearInterval(timerVar);
-            document.getElementById("timer").innerHTML = "00:00";
+            var timerEl = document.getElementById("timer");
+            if (timerEl) {
+                timerEl.innerHTML = "00:00";
+            }
             alert("10 minutes is up! Submitting your answers now.");
             gradeQuiz();
             return;
@@ -41,7 +56,10 @@ function startTimer() {
         var displayMins = mins < 10 ? "0" + mins : mins;
         var displaySecs = secs < 10 ? "0" + secs : secs;
 
-        document.getElementById("timer").innerHTML = displayMins + ":" + displaySecs;
+        var timerEl = document.getElementById("timer");
+        if (timerEl) {
+            timerEl.innerHTML = displayMins + ":" + displaySecs;
+        }
     }, 1000);
 }
 
@@ -81,7 +99,8 @@ function gradeQuiz() {
     var detailsHTML = "";
 
     // Question 1: Fill in blank (SERP)
-    var q1Val = document.getElementById("q1").value.trim().toLowerCase();
+    var q1Field = document.getElementById("q1");
+    var q1Val = q1Field ? q1Field.value.trim().toLowerCase() : "";
     if (q1Val === "search engine results page" || q1Val === "search engine results pages" || q1Val === "search engine result page") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 1:</strong> Correct! (+1)</p>";
@@ -90,7 +109,8 @@ function gradeQuiz() {
     }
 
     // Question 2: Fill in blank (alt)
-    var q2Val = document.getElementById("q2").value.trim().toLowerCase();
+    var q2Field = document.getElementById("q2");
+    var q2Val = q2Field ? q2Field.value.trim().toLowerCase() : "";
     if (q2Val === "alt" || q2Val === "alt text" || q2Val === "alt attribute") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 2:</strong> Correct! (+1)</p>";
@@ -191,31 +211,37 @@ function gradeQuiz() {
     document.getElementById("summary").innerHTML = summaryHTML;
     document.getElementById("details").innerHTML = detailsHTML;
 
-    // Show the results container and scroll down to it
+    // Show the results container
     var resultsBox = document.getElementById("results");
-    resultsBox.style.display = "block";
-    resultsBox.scrollIntoView();
+    if (resultsBox) {
+        resultsBox.style.display = "block";
+    }
 }
 
 // reset quiz function
 function resetAll() {
     // clear form inputs
-    document.getElementById("quizForm").reset();
+    var form = document.getElementById("quizForm");
+    if (form) {
+        form.reset();
+    }
 
     // hide and empty results
-    document.getElementById("results").style.display = "none";
+    var resultsBox = document.getElementById("results");
+    if (resultsBox) {
+        resultsBox.style.display = "none";
+    }
     document.getElementById("summary").innerHTML = "";
     document.getElementById("details").innerHTML = "";
 
     // reset timer variables
-    clearInterval(timerVar);
     totalSeconds = 600;
     isSubmitted = false;
-    document.getElementById("timer").innerHTML = "10:00";
+    var timerEl = document.getElementById("timer");
+    if (timerEl) {
+        timerEl.innerHTML = "10:00";
+    }
 
     // restart clock
     startTimer();
-
-    // scroll back to top
-    window.scrollTo(0, 0);
 }
