@@ -1,280 +1,221 @@
 // quiz.js - IT 3203 Milestone 2 Quiz Logic
-// Implements a 10-minute countdown, form evaluation, feedback breakdown, and state reset
 
-// Total time limit: 10 minutes (600 seconds)
-const TIME_LIMIT_SECONDS = 600;
-let remainingTime = TIME_LIMIT_SECONDS;
-let timerInterval = null;
-let quizSubmitted = false;
+// 10 minute timer in seconds (10 * 60 = 600)
+var totalSeconds = 600;
+var timerVar = null;
+var isSubmitted = false;
 
-// Master answer key matching the 10 SEO questions
-const quizKey = {
-    // Fill in the blank (string comparisons trimmed and lowercased)
-    q1: ["search engine results page", "search engine results pages", "search engine result page"],
-    q2: ["alt", "alt attribute", "alt text"],
-    
-    // Multiple Choice (single selection)
-    q3: "301",
-    q4: "head",
-    q5: "1",
-    
-    // Multi-Selection (array of correct values)
-    q6: ["meta_desc", "headings", "clean_urls"],
-    q7: ["root", "advisory", "disallow"],
-    q8: ["compress", "minify", "caching"],
-    q9: ["stuffing", "cloaking", "hidden_text"],
-    q10: ["roadmap", "metadata", "search_console"]
+// start timer when page loads
+window.onload = function() {
+    startTimer();
+
+    // button events
+    document.getElementById("submitBtn").onclick = function() {
+        if (!isSubmitted) {
+            gradeQuiz();
+        }
+    };
+
+    document.getElementById("resetBtn").onclick = function() {
+        resetAll();
+    };
 };
 
-// Start timer when the DOM is ready
-document.addEventListener("DOMContentLoaded", function () {
-    startCountdown();
-
-    const submitBtn = document.getElementById("submitBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    submitBtn.addEventListener("click", function () {
-        if (!quizSubmitted) {
-            evaluateQuiz();
-        }
-    });
-
-    resetBtn.addEventListener("click", function () {
-        resetQuiz();
-    });
-});
-
-// Countdown timer handler
-function startCountdown() {
-    clearInterval(timerInterval);
-    const display = document.getElementById("time-display");
-    const timerBox = document.getElementById("timerBox");
-
-    timerInterval = setInterval(function () {
-        if (remainingTime <= 0) {
-            clearInterval(timerInterval);
-            display.textContent = "00:00";
-            alert("Time is up! Submitting your assessment automatically.");
-            evaluateQuiz();
+// countdown timer function
+function startTimer() {
+    timerVar = setInterval(function() {
+        if (totalSeconds <= 0) {
+            clearInterval(timerVar);
+            document.getElementById("timer").innerHTML = "00:00";
+            alert("10 minutes is up! Submitting your answers now.");
+            gradeQuiz();
             return;
         }
 
-        remainingTime--;
+        totalSeconds--;
 
-        let minutes = Math.floor(remainingTime / 60);
-        let seconds = remainingTime % 60;
+        var mins = Math.floor(totalSeconds / 60);
+        var secs = totalSeconds % 60;
 
-        let formattedMin = minutes < 10 ? "0" + minutes : minutes;
-        let formattedSec = seconds < 10 ? "0" + seconds : seconds;
+        // format with leading zeros
+        var displayMins = mins < 10 ? "0" + mins : mins;
+        var displaySecs = secs < 10 ? "0" + secs : secs;
 
-        display.textContent = formattedMin + ":" + formattedSec;
-
-        // Visual alert when less than 2 minutes remain
-        if (remainingTime <= 120) {
-            timerBox.classList.add("warning");
-        } else {
-            timerBox.classList.remove("warning");
-        }
+        document.getElementById("timer").innerHTML = displayMins + ":" + displaySecs;
     }, 1000);
 }
 
-// Calculate score, record time, and generate output
-function evaluateQuiz() {
-    quizSubmitted = true;
-    clearInterval(timerInterval);
-
-    // Compute elapsed time
-    const timeSpentSeconds = TIME_LIMIT_SECONDS - remainingTime;
-    const spentMinutes = Math.floor(timeSpentSeconds / 60);
-    const spentSeconds = timeSpentSeconds % 60;
-    const formattedSpentTime = spentMinutes + "m " + (spentSeconds < 10 ? "0" + spentSeconds : spentSeconds) + "s";
-
-    let score = 0;
-    let feedbackLog = [];
-
-    // --- Q1 Check (Fill in blank) ---
-    const q1Input = document.getElementById("q1").value.trim().toLowerCase();
-    const q1Correct = quizKey.q1.includes(q1Input);
-    if (q1Correct) score++;
-    feedbackLog.push({
-        num: 1,
-        isCorrect: q1Correct,
-        userAns: q1Input || "(No answer given)",
-        correctAns: "Search Engine Results Page"
-    });
-
-    // --- Q2 Check (Fill in blank) ---
-    const q2Input = document.getElementById("q2").value.trim().toLowerCase();
-    const q2Correct = quizKey.q2.includes(q2Input);
-    if (q2Correct) score++;
-    feedbackLog.push({
-        num: 2,
-        isCorrect: q2Correct,
-        userAns: q2Input || "(No answer given)",
-        correctAns: "alt"
-    });
-
-    // --- Q3 Check (Single radio) ---
-    const q3Elem = document.querySelector('input[name="q3"]:checked');
-    const q3Ans = q3Elem ? q3Elem.value : "(No choice selected)";
-    const q3Correct = (q3Ans === quizKey.q3);
-    if (q3Correct) score++;
-    feedbackLog.push({
-        num: 3,
-        isCorrect: q3Correct,
-        userAns: q3Ans,
-        correctAns: "301 Permanent Redirect"
-    });
-
-    // --- Q4 Check (Single radio) ---
-    const q4Elem = document.querySelector('input[name="q4"]:checked');
-    const q4Ans = q4Elem ? q4Elem.value : "(No choice selected)";
-    const q4Correct = (q4Ans === quizKey.q4);
-    if (q4Correct) score++;
-    feedbackLog.push({
-        num: 4,
-        isCorrect: q4Correct,
-        userAns: q4Ans,
-        correctAns: "Inside the <head> element"
-    });
-
-    // --- Q5 Check (Single radio) ---
-    const q5Elem = document.querySelector('input[name="q5"]:checked');
-    const q5Ans = q5Elem ? q5Elem.value : "(No choice selected)";
-    const q5Correct = (q5Ans === quizKey.q5);
-    if (q5Correct) score++;
-    feedbackLog.push({
-        num: 5,
-        isCorrect: q5Correct,
-        userAns: q5Ans,
-        correctAns: "1 single main heading per page"
-    });
-
-    // Helper function for checking multi-selection arrays
-    function checkMultiSelection(name, keyArray) {
-        const checkedNodes = document.querySelectorAll(`input[name="${name}"]:checked`);
-        let selectedValues = [];
-        checkedNodes.forEach(node => selectedValues.push(node.value));
-
-        if (selectedValues.length !== keyArray.length) {
-            return { isCorrect: false, userVals: selectedValues };
+// helper to get checked values from a group of checkboxes
+function getCheckedValues(name) {
+    var checked = [];
+    var boxes = document.getElementsByName(name);
+    for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+            checked.push(boxes[i].value);
         }
+    }
+    return checked;
+}
 
-        const match = keyArray.every(val => selectedValues.includes(val));
-        return { isCorrect: match, userVals: selectedValues };
+// helper to compare two arrays
+function arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+        if (b.indexOf(a[i]) === -1) return false;
+    }
+    return true;
+}
+
+// function to calculate score and show output
+function gradeQuiz() {
+    isSubmitted = true;
+    clearInterval(timerVar);
+
+    // figure out time spent
+    var timeSpent = 600 - totalSeconds;
+    var spentMins = Math.floor(timeSpent / 60);
+    var spentSecs = timeSpent % 60;
+    var timeString = spentMins + " minute(s) and " + spentSecs + " second(s)";
+
+    var score = 0;
+    var detailsHTML = "";
+
+    // Question 1: Fill in blank (SERP)
+    var q1Val = document.getElementById("q1").value.trim().toLowerCase();
+    if (q1Val === "search engine results page" || q1Val === "search engine results pages" || q1Val === "search engine result page") {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 1:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 1:</strong> Incorrect (0) - You wrote: '" + (q1Val || "blank") + "'. Correct answer: Search Engine Results Page</p>";
     }
 
-    // --- Q6 Check (Multi-checkbox) ---
-    const resQ6 = checkMultiSelection("q6", quizKey.q6);
-    if (resQ6.isCorrect) score++;
-    feedbackLog.push({
-        num: 6,
-        isCorrect: resQ6.isCorrect,
-        userAns: resQ6.userVals.join(", ") || "(None selected)",
-        correctAns: "meta_desc, headings, clean_urls"
-    });
+    // Question 2: Fill in blank (alt)
+    var q2Val = document.getElementById("q2").value.trim().toLowerCase();
+    if (q2Val === "alt" || q2Val === "alt text" || q2Val === "alt attribute") {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 2:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 2:</strong> Incorrect (0) - You wrote: '" + (q2Val || "blank") + "'. Correct answer: alt</p>";
+    }
 
-    // --- Q7 Check (Multi-checkbox) ---
-    const resQ7 = checkMultiSelection("q7", quizKey.q7);
-    if (resQ7.isCorrect) score++;
-    feedbackLog.push({
-        num: 7,
-        isCorrect: resQ7.isCorrect,
-        userAns: resQ7.userVals.join(", ") || "(None selected)",
-        correctAns: "root, advisory, disallow"
-    });
+    // Question 3: Radio (301)
+    var q3Choice = document.querySelector('input[name="q3"]:checked');
+    var q3Val = q3Choice ? q3Choice.value : "None";
+    if (q3Val === "301") {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 3:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 3:</strong> Incorrect (0) - Selected: " + q3Val + ". Correct answer: 301</p>";
+    }
 
-    // --- Q8 Check (Multi-checkbox) ---
-    const resQ8 = checkMultiSelection("q8", quizKey.q8);
-    if (resQ8.isCorrect) score++;
-    feedbackLog.push({
-        num: 8,
-        isCorrect: resQ8.isCorrect,
-        userAns: resQ8.userVals.join(", ") || "(None selected)",
-        correctAns: "compress, minify, caching"
-    });
+    // Question 4: Radio (head)
+    var q4Choice = document.querySelector('input[name="q4"]:checked');
+    var q4Val = q4Choice ? q4Choice.value : "None";
+    if (q4Val === "head") {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 4:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 4:</strong> Incorrect (0) - Selected: " + q4Val + ". Correct answer: Inside the &lt;head&gt; section</p>";
+    }
 
-    // --- Q9 Check (Multi-checkbox) ---
-    const resQ9 = checkMultiSelection("q9", quizKey.q9);
-    if (resQ9.isCorrect) score++;
-    feedbackLog.push({
-        num: 9,
-        isCorrect: resQ9.isCorrect,
-        userAns: resQ9.userVals.join(", ") || "(None selected)",
-        correctAns: "stuffing, cloaking, hidden_text"
-    });
+    // Question 5: Radio (1)
+    var q5Choice = document.querySelector('input[name="q5"]:checked');
+    var q5Val = q5Choice ? q5Choice.value : "None";
+    if (q5Val === "1") {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 5:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 5:</strong> Incorrect (0) - Selected: " + q5Val + ". Correct answer: 1 main heading</p>";
+    }
 
-    // --- Q10 Check (Multi-checkbox) ---
-    const resQ10 = checkMultiSelection("q10", quizKey.q10);
-    if (resQ10.isCorrect) score++;
-    feedbackLog.push({
-        num: 10,
-        isCorrect: resQ10.isCorrect,
-        userAns: resQ10.userVals.join(", ") || "(None selected)",
-        correctAns: "roadmap, metadata, search_console"
-    });
+    // Question 6: Checkboxes (meta, headings, urls)
+    var q6Ans = getCheckedValues("q6");
+    var q6Correct = ["meta", "headings", "urls"];
+    if (arraysEqual(q6Ans, q6Correct)) {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 6:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 6:</strong> Incorrect (0) - Correct choices: Meta descriptions, Headings, and Short URL slugs</p>";
+    }
 
-    // Render results
-    renderResults(score, feedbackLog, formattedSpentTime);
+    // Question 7: Checkboxes (root, guide, syntax)
+    var q7Ans = getCheckedValues("q7");
+    var q7Correct = ["root", "guide", "syntax"];
+    if (arraysEqual(q7Ans, q7Correct)) {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 7:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 7:</strong> Incorrect (0) - Correct choices: Root directory, Guides crawlers, and Disallow/User-agent syntax</p>";
+    }
+
+    // Question 8: Checkboxes (compress, minify, cache)
+    var q8Ans = getCheckedValues("q8");
+    var q8Correct = ["compress", "minify", "cache"];
+    if (arraysEqual(q8Ans, q8Correct)) {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 8:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 8:</strong> Incorrect (0) - Correct choices: Compress images, Minify files, and Browser caching</p>";
+    }
+
+    // Question 9: Checkboxes (cloaking, hidden, buying)
+    var q9Ans = getCheckedValues("q9");
+    var q9Correct = ["cloaking", "hidden", "buying"];
+    if (arraysEqual(q9Ans, q9Correct)) {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 9:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 9:</strong> Incorrect (0) - Correct choices: Cloaking, Hidden text, and Buying spam links</p>";
+    }
+
+    // Question 10: Checkboxes (map, dates, gsc)
+    var q10Ans = getCheckedValues("q10");
+    var q10Correct = ["map", "dates", "gsc"];
+    if (arraysEqual(q10Ans, q10Correct)) {
+        score++;
+        detailsHTML += "<p style='color: green;'><strong>Question 10:</strong> Correct! (+1)</p>";
+    } else {
+        detailsHTML += "<p style='color: red;'><strong>Question 10:</strong> Incorrect (0) - Correct choices: List of URLs, Last modified dates, and Submit in Search Console</p>";
+    }
+
+    // Pass / Fail status (70% or 7/10)
+    var passed = score >= 7;
+    var statusColor = passed ? "green" : "red";
+    var passText = passed ? "PASSED" : "FAILED (Needs Review)";
+
+    // Summary output
+    var summaryHTML = "<p><strong>Overall Result: </strong><span style='color: " + statusColor + "; font-size: 1.2em; font-weight: bold;'>" + passText + "</span></p>" +
+                      "<p><strong>Total Score: </strong>" + score + " / 10 (" + (score * 10) + "%)</p>" +
+                      "<p><strong>Time Taken: </strong>" + timeString + "</p>";
+
+    document.getElementById("summary").innerHTML = summaryHTML;
+    document.getElementById("details").innerHTML = detailsHTML;
+
+    // Show the results container and scroll down to it
+    var resultsBox = document.getElementById("results");
+    resultsBox.style.display = "block";
+    resultsBox.scrollIntoView();
 }
 
-// Display results banner and question breakdown
-function renderResults(totalScore, feedbackList, duration) {
-    const dashboard = document.getElementById("results-dashboard");
-    const banner = document.getElementById("scoreBanner");
-    const breakdownList = document.getElementById("breakdown-list");
+// reset quiz function
+function resetAll() {
+    // clear form inputs
+    document.getElementById("quizForm").reset();
 
-    const percentage = (totalScore / 10) * 100;
-    const passed = percentage >= 70; // 70% threshold
+    // hide and empty results
+    document.getElementById("results").style.display = "none";
+    document.getElementById("summary").innerHTML = "";
+    document.getElementById("details").innerHTML = "";
 
-    // Status banner
-    banner.className = "score-banner " + (passed ? "passed" : "failed");
-    banner.innerHTML = `
-        <h2>${passed ? "Assessment Passed!" : "Assessment Needs Review"}</h2>
-        <p><strong>Score:</strong> ${totalScore} / 10 (${percentage}%)</p>
-        <p><strong>Completion Time:</strong> ${duration}</p>
-        <p><strong>Result:</strong> ${passed ? "PASS" : "FAIL"}</p>
-    `;
+    // reset timer variables
+    clearInterval(timerVar);
+    totalSeconds = 600;
+    isSubmitted = false;
+    document.getElementById("timer").innerHTML = "10:00";
 
-    // Question-by-question breakdown
-    breakdownList.innerHTML = "";
-    feedbackList.forEach(item => {
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "question-feedback-item " + (item.isCorrect ? "feedback-correct" : "feedback-incorrect");
+    // restart clock
+    startTimer();
 
-        itemDiv.innerHTML = `
-            <p><strong>Question ${item.num}:</strong> ${item.isCorrect ? "Correct (+1)" : "Incorrect (0)"}</p>
-            <p class="user-answer-text">Your Submission: <em>${escapeHTML(item.userAns)}</em></p>
-            ${!item.isCorrect ? `<p class="correct-answer-text">Expected: ${escapeHTML(item.correctAns)}</p>` : ""}
-        `;
-        breakdownList.appendChild(itemDiv);
-    });
-
-    dashboard.style.display = "block";
-    dashboard.scrollIntoView({ behavior: "smooth" });
-}
-
-// Reset the entire form and restart clock
-function resetQuiz() {
-    document.getElementById("seoQuizForm").reset();
-    document.getElementById("results-dashboard").style.display = "none";
-    document.getElementById("breakdown-list").innerHTML = "";
-
-    // Reset clock state
-    remainingTime = TIME_LIMIT_SECONDS;
-    quizSubmitted = false;
-    document.getElementById("time-display").textContent = "10:00";
-    document.getElementById("timerBox").classList.remove("warning");
-
-    startCountdown();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-// Basic helper to prevent HTML injection in display fields
-function escapeHTML(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+    // scroll back to top
+    window.scrollTo(0, 0);
 }
