@@ -1,4 +1,4 @@
-// quiz.js - IT 3203 Milestone 2 Quiz Logic
+// quiz.js - IT 3203 Milestone 2 Quiz 
 
 // 10 minute timer in seconds (10 * 60 = 600)
 var totalSeconds = 600;
@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // countdown timer function
 function startTimer() {
-    // clear any existing timer instance first
     if (timerVar !== null) {
         clearInterval(timerVar);
     }
@@ -63,6 +62,14 @@ function startTimer() {
     }, 1000);
 }
 
+// helper to disable or enable all form inputs
+function setInputsDisabled(status) {
+    var inputs = document.getElementById("quizForm").getElementsByTagName("input");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = status;
+    }
+}
+
 // helper to get checked values from a group of checkboxes
 function getCheckedValues(name) {
     var checked = [];
@@ -88,6 +95,9 @@ function arraysEqual(a, b) {
 function gradeQuiz() {
     isSubmitted = true;
     clearInterval(timerVar);
+
+    // disable all form inputs after submission
+    setInputsDisabled(true);
 
     // figure out time spent
     var timeSpent = 600 - totalSeconds;
@@ -211,10 +221,11 @@ function gradeQuiz() {
     document.getElementById("summary").innerHTML = summaryHTML;
     document.getElementById("details").innerHTML = detailsHTML;
 
-    // Show the results container
+    // Show the results container and scroll down smoothly
     var resultsBox = document.getElementById("results");
     if (resultsBox) {
         resultsBox.style.display = "block";
+        resultsBox.scrollIntoView({ behavior: "smooth" });
     }
 }
 
@@ -225,6 +236,9 @@ function resetAll() {
     if (form) {
         form.reset();
     }
+
+    // re-enable form inputs
+    setInputsDisabled(false);
 
     // hide and empty results
     var resultsBox = document.getElementById("results");
@@ -244,4 +258,7 @@ function resetAll() {
 
     // restart clock
     startTimer();
+
+    // scroll smoothly back to the top
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
