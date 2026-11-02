@@ -25,7 +25,7 @@
         <p>Test your knowledge on SEO concepts, crawler behavior, and page indexing. You have 10 minutes to complete the 10 questions below.</p>
 
         <!-- timer box -->
-        <div id="timer-container" style="background-color: #f2f2f2; padding: 10px; border: 1px solid #ccc; width: 220px; font-weight: bold; margin-bottom: 20px;">
+        <div id="timer-container">
             Time Left: <span id="timer">10:00</span>
         </div>
 
@@ -33,21 +33,21 @@
         <form id="quizForm">
 
             <!-- Question 1: Fill in blank -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 1 (Fill in the blank)</strong></legend>
                 <p>What does the acronym SERP stand for?</p>
-                <input type="text" id="q1" name="q1" placeholder="Your answer here" style="width: 250px; padding: 5px;">
+                <input type="text" id="q1" name="q1" placeholder="Your answer here" class="quiz-text-input">
             </fieldset>
 
             <!-- Question 2: Fill in blank -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 2 (Fill in the blank)</strong></legend>
                 <p>Which image tag attribute provides alternate text for accessibility and search engine bots?</p>
-                <input type="text" id="q2" name="q2" placeholder="e.g. title, alt, src" style="width: 250px; padding: 5px;">
+                <input type="text" id="q2" name="q2" placeholder="e.g. title, alt, src" class="quiz-text-input">
             </fieldset>
 
             <!-- Question 3: Multiple choice radio -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 3 (Multiple Choice)</strong></legend>
                 <p>Which HTTP status code tells search engines that a page has permanently moved?</p>
                 <label><input type="radio" name="q3" value="301"> 301 Moved Permanently</label><br>
@@ -57,7 +57,7 @@
             </fieldset>
 
             <!-- Question 4: Multiple choice radio -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 4 (Multiple Choice)</strong></legend>
                 <p>Where is the canonical link tag usually located in an HTML page?</p>
                 <label><input type="radio" name="q4" value="head"> Inside the &lt;head&gt; section</label><br>
@@ -67,7 +67,7 @@
             </fieldset>
 
             <!-- Question 5: Multiple choice radio -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 5 (Multiple Choice)</strong></legend>
                 <p>Generally, how many &lt;h1&gt; tags should a single web page have for optimal semantic hierarchy?</p>
                 <label><input type="radio" name="q5" value="1"> Exactly 1 main heading</label><br>
@@ -77,7 +77,7 @@
             </fieldset>
 
             <!-- Question 6: Checkbox multi-select -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 6 (Select all that apply)</strong></legend>
                 <p>Which of the following are good on-page SEO practices?</p>
                 <label><input type="checkbox" name="q6" value="meta"> Writing helpful meta description tags</label><br>
@@ -87,7 +87,7 @@
             </fieldset>
 
             <!-- Question 7: Checkbox multi-select -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 7 (Select all that apply)</strong></legend>
                 <p>Which statements about the robots.txt file are true?</p>
                 <label><input type="checkbox" name="q7" value="root"> It is placed in the root directory of the website</label><br>
@@ -97,7 +97,7 @@
             </fieldset>
 
             <!-- Question 8: Checkbox multi-select -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 8 (Select all that apply)</strong></legend>
                 <p>Which techniques help improve page loading speed?</p>
                 <label><input type="checkbox" name="q8" value="compress"> Compressing large image files</label><br>
@@ -107,7 +107,7 @@
             </fieldset>
 
             <!-- Question 9: Checkbox multi-select -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 9 (Select all that apply)</strong></legend>
                 <p>Which tactics are considered "Black Hat" SEO that can get a site penalized?</p>
                 <label><input type="checkbox" name="q9" value="cloaking"> Cloaking (showing different content to bots than users)</label><br>
@@ -117,7 +117,7 @@
             </fieldset>
 
             <!-- Question 10: Checkbox multi-select -->
-            <fieldset style="margin-bottom: 15px; padding: 12px;">
+            <fieldset>
                 <legend><strong>Question 10 (Select all that apply)</strong></legend>
                 <p>Which statements about XML sitemaps are correct?</p>
                 <label><input type="checkbox" name="q10" value="map"> They give search engines a list of URLs to discover</label><br>
@@ -127,14 +127,14 @@
             </fieldset>
 
             <!-- submit and reset buttons -->
-            <div style="margin: 20px 0;">
-                <button type="button" id="submitBtn" style="padding: 8px 16px; cursor: pointer;">Submit Quiz</button>
-                <button type="button" id="resetBtn" style="padding: 8px 16px; cursor: pointer; margin-left: 10px;">Reset Quiz</button>
+            <div class="quiz-buttons">
+                <button type="button" id="submitBtn" class="quiz-btn">Submit Quiz</button>
+                <button type="button" id="resetBtn" class="quiz-btn">Reset Quiz</button>
             </div>
         </form>
 
         <!-- results section (hidden by default) -->
-        <div id="results" style="display: none; margin-top: 25px; padding: 15px; border: 2px solid #333;">
+        <div id="results">
             <h2>Assessment Results</h2>
             <div id="summary"></div>
             <hr>
