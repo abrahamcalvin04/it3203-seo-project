@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Knowledge Assessment - IT 3203</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for the quiz module */
+        .quiz-container {
+            max-width: 860px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .timer-box {
+            position: sticky;
+            top: 15px;
+            background: #2b3a4a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .timer-box.warning {
+            background: #b93838;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 1; }
+            to { opacity: 0.8; }
+        }
+
+        .question-card {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fbfbfb;
+            border-left: 4px solid #1a73e8;
+            border-radius: 4px;
+            border-top: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .question-card h3 {
+            margin-top: 0;
+            color: #202124;
+            font-size: 1.05rem;
+        }
+
+        .question-instruction {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .option-label:hover {
+            background: #f0f4f9;
+        }
+
+        .text-input-field {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 12px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .text-input-field:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 4px rgba(26,115,232,0.4);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-submit {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #1558b0;
+        }
+
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-reset:hover {
+            background-color: #545b62;
+        }
+
+        /* Results dashboard */
+        #results-dashboard {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 6px;
+            background: #ffffff;
+            border: 2px solid #ddd;
+        }
+
+        .score-banner {
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .passed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .failed {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .question-feedback-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 5px solid transparent;
+        }
+
+        .feedback-correct {
+            background: #eef7ee;
+            border-left-color: #28a745;
+        }
+
+        .feedback-incorrect {
+            background: #fdf0f0;
+            border-left-color: #dc3545;
+        }
+
+        .correct-answer-text {
+            color: #155724;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .user-answer-text {
+            color: #495057;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Standard Header & Navigation -->
+    <header>
+        <h1>IT 3203 SEO Project</h1>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="concepts.html">Key Concepts</a></li>
+                <li><a href="quiz.html" class="active">Quiz</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quiz-container">
+        <h2>SEO Self-Assessment Evaluation</h2>
+        <p>Assess your understanding of web indexing, organic search architecture, on-page optimization, and crawling protocols. Complete all 10 questions before the 10-minute timer expires.</p>
+
+        <!-- Timer Display Bar -->
+        <div class="timer-box" id="timerBox">
+            <span>Time Remaining:</span>
+            <span id="time-display">10:00</span>
+        </div>
+
+        <form id="seoQuizForm">
+            
+            <!-- Question 1: Fill in the Blank -->
+            <div class="question-card" id="card-q1">
+                <h3>1. Fill in the Blank: What does the acronym SERP stand for in search marketing?</h3>
+                <p class="question-instruction">Type your answer below (case-insensitive).</p>
+                <input type="text" name="q1" id="q1" class="text-input-field" placeholder="Type answer here...">
+            </div>
+
+            <!-- Question 2: Fill in the Blank -->
+            <div class="question-card" id="card-q2">
+                <h3>2. Fill in the Blank: Which HTML attribute is added to an &lt;img&gt; tag to provide descriptive text for accessibility and search engine image crawlers?</h3>
+                <p class="question-instruction">Provide the exact attribute name.</p>
+                <input type="text" name="q2" id="q2" class="text-input-field" placeholder="e.g., src, title, alt...">
+            </div>
+
+            <!-- Question 3: Multiple Choice (Single) -->
+            <div class="question-card" id="card-q3">
+                <h3>3. Which HTTP status code officially communicates to search engines that a page has been moved permanently to a new URL?</h3>
+                <p class="question-instruction">Select one answer.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q3" value="301"> 301 Permanent Redirect</label>
+                    <label class="option-label"><input type="radio" name="q3" value="302"> 302 Found / Temporary Redirect</label>
+                    <label class="option-label"><input type="radio" name="q3" value="404"> 404 Not Found</label>
+                    <label class="option-label"><input type="radio" name="q3" value="500"> 500 Internal Server Error</label>
+                </div>
+            </div>
+
+            <!-- Question 4: Multiple Choice (Single) -->
+            <div class="question-card" id="card-q4">
+                <h3>4. Where should the primary canonical tag (&lt;link rel="canonical"&gt;) be placed inside an HTML document?</h3>
+                <p class="question-instruction">Select one answer.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q4" value="body"> Anywhere inside the &lt;body&gt; section</label>
+                    <label class="option-label"><input type="radio" name="q4" value="head"> Inside the &lt;head&gt; element</label>
+                    <label class="option-label"><input type="radio" name="q4" value="footer"> Directly inside the &lt;footer&gt;</label>
+                    <label class="option-label"><input type="radio" name="q4" value="robots"> Inside the robots.txt file</label>
+                </div>
+            </div>
+
+            <!-- Question 5: Multiple Choice (Single) -->
+            <div class="question-card" id="card-q5">
+                <h3>5. What is the standard recommended limit for &lt;h1&gt; tags per unique webpage to maintain clear semantic hierarchy?</h3>
+                <p class="question-instruction">Select one answer.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q5" value="1"> 1 single main heading per page</label>
+                    <label class="option-label"><input type="radio" name="q5" value="3"> Up to 3 per section</label>
+                    <label class="option-label"><input type="radio" name="q5" value="unlimited"> Unlimited as long as CSS is styled</label>
+                    <label class="option-label"><input type="radio" name="q5" value="none"> Zero; &lt;h2&gt; tags should always lead</label>
+                </div>
+            </div>
+
+            <!-- Question 6: Multi-Selection (Checkboxes) -->
+            <div class="question-card" id="card-q6">
+                <h3>6. Which of the following elements directly contribute to On-Page technical SEO?</h3>
+                <p class="question-instruction">Select all that apply.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q6" value="meta_desc"> Descriptive &lt;meta name="description"&gt; tags</label>
+                    <label class="option-label"><input type="checkbox" name="q6" value="headings"> Hierarchical heading structure (H1, H2, H3)</label>
+                    <label class="option-label"><input type="checkbox" name="q6" value="desk_color"> The physical color of the web developer's desk</label>
+                    <label class="option-label"><input type="checkbox" name="q6" value="clean_urls"> Semantic, human-readable URL slugs</label>
+                </div>
+            </div>
+
+            <!-- Question 7: Multi-Selection (Checkboxes) -->
+            <div class="question-card" id="card-q7">
+                <h3>7. Which statements regarding the robots.txt file are technically accurate?</h3>
+                <p class="question-instruction">Select all that apply.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q7" value="root"> It resides in the top-level root directory of a web server</label>
+                    <label class="option-label"><input type="checkbox" name="q7" value="security"> It acts as an impenetrable security barrier preventing hackers from reading pages</label>
+                    <label class="option-label"><input type="checkbox" name="q7" value="advisory"> It gives crawling directives/advisories to legitimate bots</label>
+                    <label class="option-label"><input type="checkbox" name="q7" value="disallow"> It uses commands like 'User-agent:' and 'Disallow:'</label>
+                </div>
+            </div>
+
+            <!-- Question 8: Multi-Selection (Checkboxes) -->
+            <div class="question-card" id="card-q8">
+                <h3>8. Which factors are known to improve Core Web Vitals and overall page speed?</h3>
+                <p class="question-instruction">Select all that apply.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q8" value="compress"> Compressing image assets (WebP/AVIF)</label>
+                    <label class="option-label"><input type="checkbox" name="q8" value="minify"> Minifying CSS and JavaScript files</label>
+                    <label class="option-label"><input type="checkbox" name="q8" value="bloat"> Adding 10 unused render-blocking external scripts</label>
+                    <label class="option-label"><input type="checkbox" name="q8" value="caching"> Leveraging browser caching</label>
+                </div>
+            </div>
+
+            <!-- Question 9: Multi-Selection (Checkboxes) -->
+            <div class="question-card" id="card-q9">
+                <h3>9. Which practices are considered "Black Hat" SEO tactics that can lead to manual search engine penalties?</h3>
+                <p class="question-instruction">Select all that apply.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q9" value="stuffing"> Keyword stuffing (repeating keywords unnaturally)</label>
+                    <label class="option-label"><input type="checkbox" name="q9" value="cloaking"> Cloaking (presenting different content to bots vs users)</label>
+                    <label class="option-label"><input type="checkbox" name="q9" value="authoritative"> Publishing original, well-cited empirical research</label>
+                    <label class="option-label"><input type="checkbox" name="q9" value="hidden_text"> Placing hidden white text on a white background</label>
+                </div>
+            </div>
+
+            <!-- Question 10: Multi-Selection (Checkboxes) -->
+            <div class="question-card" id="card-q10">
+                <h3>10. Which of the following describe XML sitemaps?</h3>
+                <p class="question-instruction">Select all that apply.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="checkbox" name="q10" value="roadmap"> They provide a structured URL roadmap to help search crawlers find pages</label>
+                    <label class="option-label"><input type="checkbox" name="q10" value="metadata"> They can include metadata like last modified dates (&lt;lastmod&gt;)</label>
+                    <label class="option-label"><input type="checkbox" name="q10" value="guarantee"> They guarantee a #1 ranking on Google for every submitted URL</label>
+                    <label class="option-label"><input type="checkbox" name="q10" value="search_console"> They can be submitted directly via Google Search Console</label>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="action-buttons">
+                <button type="button" id="submitBtn" class="btn-submit">Submit Assessment</button>
+                <button type="button" id="resetBtn" class="btn-reset">Reset / Retake</button>
+            </div>
+        </form>
+
+        <!-- Evaluation Results Breakdown -->
+        <div id="results-dashboard">
+            <div id="scoreBanner" class="score-banner">
+                <!-- Injected via JS -->
+            </div>
+            <h3>Detailed Question Breakdown:</h3>
+            <div id="breakdown-list">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IT 3203 Project - Dynamic Frontend Milestone 2</p>
+    </footer>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
