@@ -22,7 +22,7 @@
 
     <main class="page-container">
         <h1>SEO Self-Assessment Quiz</h1>
-        <p>Test your knowledge on SEO concepts, crawler behavior, and page indexing. You have 10 minutes to complete the 10 questions below.</p>
+        <p>Test your knowledge on SEO architecture, crawler behavior, semantic models, and web vitals directly covered across this website. You have 10 minutes to complete the 10 questions below.</p>
 
         <!-- timer box -->
         <div id="timer-container">
@@ -32,124 +32,63 @@
         <!-- quiz form -->
         <form id="quizForm">
 
-            <!-- Question 1: Fill in blank -->
+            <!-- Question 1: Easy (Fill in the blank) -->
             <fieldset>
-                <legend><strong>Question 1 (Fill in the blank)</strong></legend>
-                <p>What does the acronym SERP stand for?</p>
+                <legend><strong>Question 1 (Easy - Fill in the blank)</strong></legend>
+                <p>According to the homepage key terms, what does the acronym SERP stand for?</p>
                 <input type="text" id="q1" name="q1" placeholder="Your answer here" class="quiz-text-input">
             </fieldset>
 
-            <!-- Question 2: Fill in blank -->
+            <!-- Question 2: Easy (Fill in the blank) -->
             <fieldset>
-                <legend><strong>Question 2 (Fill in the blank)</strong></legend>
-                <p>Which image tag attribute provides alternate text for accessibility and search engine bots?</p>
-                <input type="text" id="q2" name="q2" placeholder="e.g. title, alt, src" class="quiz-text-input">
+                <legend><strong>Question 2 (Easy - Fill in the blank)</strong></legend>
+                <p>According to the homepage key terms, what type of search listings are determined naturally by algorithmic relevance rather than paid advertising auctions?</p>
+                <input type="text" id="q2" name="q2" placeholder="Your answer here" class="quiz-text-input">
             </fieldset>
 
-            <!-- Question 3: Multiple choice radio -->
+            <!-- Question 3: Medium (Multiple Choice Radio) -->
             <fieldset>
-                <legend><strong>Question 3 (Multiple Choice)</strong></legend>
-                <p>Which HTTP status code tells search engines that a page has permanently moved?</p>
-                <label><input type="radio" name="q3" value="301"> 301 Moved Permanently</label><br>
-                <label><input type="radio" name="q3" value="302"> 302 Found / Temporary</label><br>
-                <label><input type="radio" name="q3" value="404"> 404 Not Found</label><br>
-                <label><input type="radio" name="q3" value="500"> 500 Server Error</label>
+                <legend><strong>Question 3 (Medium - Multiple Choice)</strong></legend>
+                <p>According to the key concepts and homepage notes, where in the HTML document should a canonical tag be placed?</p>
+                <label><input type="radio" name="q3" value="head"> In the HTML &lt;head&gt;</label><br>
+                <label><input type="radio" name="q3" value="body"> Anywhere in the &lt;body&gt;</label><br>
+                <label><input type="radio" name="q3" value="footer"> Inside the &lt;footer&gt;</label><br>
+                <label><input type="radio" name="q3" value="server"> In the server access log only</label>
             </fieldset>
 
-            <!-- Question 4: Multiple choice radio -->
+            <!-- Question 4: Medium (Multiple Choice Radio) -->
             <fieldset>
-                <legend><strong>Question 4 (Multiple Choice)</strong></legend>
-                <p>Where is the canonical link tag usually located in an HTML page?</p>
-                <label><input type="radio" name="q4" value="head"> Inside the &lt;head&gt; section</label><br>
-                <label><input type="radio" name="q4" value="body"> Inside the &lt;body&gt; section</label><br>
-                <label><input type="radio" name="q4" value="footer"> Inside the &lt;footer&gt;</label><br>
-                <label><input type="radio" name="q4" value="server"> On the web server config only</label>
+                <legend><strong>Question 4 (Medium - Multiple Choice)</strong></legend>
+                <p>On the Semantic SEO page intent classification table, which intent category describes users whose primary goal is to compare options?</p>
+                <label><input type="radio" name="q4" value="informational"> Informational</label><br>
+                <label><input type="radio" name="q4" value="navigational"> Navigational</label><br>
+                <label><input type="radio" name="q4" value="investigational"> Investigational</label><br>
+                <label><input type="radio" name="q4" value="transactional"> Transactional</label>
             </fieldset>
 
-            <!-- Question 5: Multiple choice radio -->
+            <!-- Question 5: Medium-Hard (Multiple Choice Radio) -->
             <fieldset>
-                <legend><strong>Question 5 (Multiple Choice)</strong></legend>
-                <p>Generally, how many &lt;h1&gt; tags should a single web page have for optimal semantic hierarchy?</p>
-                <label><input type="radio" name="q5" value="1"> Exactly 1 main heading</label><br>
-                <label><input type="radio" name="q5" value="3"> At least 3 per page</label><br>
-                <label><input type="radio" name="q5" value="none"> 0 (only use h2 and h3)</label><br>
-                <label><input type="radio" name="q5" value="many"> As many as you want</label>
+                <legend><strong>Question 5 (Medium-Hard - Multiple Choice)</strong></legend>
+                <p>According to the Core Web Vitals section on the Key Concepts page, which specific metric is responsible for assessing responsiveness by measuring input latency during a session?</p>
+                <label><input type="radio" name="q5" value="inp"> Interaction to Next Paint (INP)</label><br>
+                <label><input type="radio" name="q5" value="lcp"> Largest Contentful Paint (LCP)</label><br>
+                <label><input type="radio" name="q5" value="cls"> Cumulative Layout Shift (CLS)</label><br>
+                <label><input type="radio" name="q5" value="ttfb"> Time to First Byte (TTFB)</label>
             </fieldset>
 
-            <!-- Question 6: Checkbox multi-select -->
+            <!-- Question 6: Medium-Hard (Multi-Selection Checkbox) -->
             <fieldset>
-                <legend><strong>Question 6 (Select all that apply)</strong></legend>
-                <p>Which of the following are good on-page SEO practices?</p>
-                <label><input type="checkbox" name="q6" value="meta"> Writing helpful meta description tags</label><br>
-                <label><input type="checkbox" name="q6" value="headings"> Using proper H1, H2, and H3 headers</label><br>
-                <label><input type="checkbox" name="q6" value="stuffing"> Stuffing identical keywords 50 times in white text</label><br>
-                <label><input type="checkbox" name="q6" value="urls"> Creating short, human-readable URL slugs</label>
+                <legend><strong>Question 6 (Medium-Hard - Select all that apply)</strong></legend>
+                <p>According to the Search Engine Pipeline section on the Technical SEO page, which of the following are the four technical stages webpages navigate before they can be ranked?</p>
+                <label><input type="checkbox" name="q6" value="discovery"> Discovery</label><br>
+                <label><input type="checkbox" name="q6" value="crawling"> Crawling</label><br>
+                <label><input type="checkbox" name="q6" value="rendering"> Rendering</label><br>
+                <label><input type="checkbox" name="q6" value="monetization"> Monetization</label><br>
+                <label><input type="checkbox" name="q6" value="analysis"> Analysis</label>
             </fieldset>
 
-            <!-- Question 7: Checkbox multi-select -->
+            <!-- Question 7: Medium-Hard (Multi-Selection Checkbox) -->
             <fieldset>
-                <legend><strong>Question 7 (Select all that apply)</strong></legend>
-                <p>Which statements about the robots.txt file are true?</p>
-                <label><input type="checkbox" name="q7" value="root"> It is placed in the root directory of the website</label><br>
-                <label><input type="checkbox" name="q7" value="guide"> It guides search bot crawlers on what not to visit</label><br>
-                <label><input type="checkbox" name="q7" value="firewall"> It stops cyber attackers and hackers from seeing pages</label><br>
-                <label><input type="checkbox" name="q7" value="syntax"> It uses commands like Disallow and User-agent</label>
-            </fieldset>
-
-            <!-- Question 8: Checkbox multi-select -->
-            <fieldset>
-                <legend><strong>Question 8 (Select all that apply)</strong></legend>
-                <p>Which techniques help improve page loading speed?</p>
-                <label><input type="checkbox" name="q8" value="compress"> Compressing large image files</label><br>
-                <label><input type="checkbox" name="q8" value="minify"> Minifying CSS and JavaScript files</label><br>
-                <label><input type="checkbox" name="q8" value="cache"> Enabling browser caching</label><br>
-                <label><input type="checkbox" name="q8" value="scripts"> Adding 15 heavy unneeded tracking scripts</label>
-            </fieldset>
-
-            <!-- Question 9: Checkbox multi-select -->
-            <fieldset>
-                <legend><strong>Question 9 (Select all that apply)</strong></legend>
-                <p>Which tactics are considered "Black Hat" SEO that can get a site penalized?</p>
-                <label><input type="checkbox" name="q9" value="cloaking"> Cloaking (showing different content to bots than users)</label><br>
-                <label><input type="checkbox" name="q9" value="hidden"> Hiding white keyword text on white backgrounds</label><br>
-                <label><input type="checkbox" name="q9" value="research"> Writing original research articles</label><br>
-                <label><input type="checkbox" name="q9" value="buying"> Buying thousands of spam links</label>
-            </fieldset>
-
-            <!-- Question 10: Checkbox multi-select -->
-            <fieldset>
-                <legend><strong>Question 10 (Select all that apply)</strong></legend>
-                <p>Which statements about XML sitemaps are correct?</p>
-                <label><input type="checkbox" name="q10" value="map"> They give search engines a list of URLs to discover</label><br>
-                <label><input type="checkbox" name="q10" value="dates"> They can contain metadata like last modified dates</label><br>
-                <label><input type="checkbox" name="q10" value="gsc"> They can be submitted in Google Search Console</label><br>
-                <label><input type="checkbox" name="q10" value="guarantee"> They guarantee a rank 1 position immediately</label>
-            </fieldset>
-
-            <!-- submit and reset buttons -->
-            <div class="quiz-buttons">
-                <button type="button" id="submitBtn" class="quiz-btn">Submit Quiz</button>
-                <button type="button" id="resetBtn" class="quiz-btn">Reset Quiz</button>
-            </div>
-        </form>
-
-        <!-- results section (hidden by default) -->
-        <div id="results">
-            <h2>Assessment Results</h2>
-            <div id="summary"></div>
-            <hr>
-            <h3>Question Breakdown:</h3>
-            <div id="details"></div>
-        </div>
-
-    </main>
-
-    <!-- footer required for class -->
-    <footer>
-        <p>This is a class project. Visit the <a href="https://ksuweb.github.io/IT3203/" target="_blank" rel="noopener noreferrer">IT 3203 class website</a>.</p>
-    </footer>
-
-    <!-- linking the quiz javascript file -->
-    <script src="quiz.js"></script>
-</body>
-</html>
+                <legend><strong>Question 7 (Medium-Hard - Select all that apply)</strong></legend>
+                <p>According to the PageRank explanation on the Key Concepts page, how does the mathematical graph view the web structure?</p>
+                <label><input type="checkbox" name="q7" value="nodes"> Views webpages
