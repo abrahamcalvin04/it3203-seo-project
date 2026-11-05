@@ -1,4 +1,4 @@
-// quiz.js - IT 3203 Milestone 2 Quiz 
+// quiz.js - IT 3203 Milestone 2 Quiz Logic
 
 // 10 minute timer in seconds (10 * 60 = 600)
 var totalSeconds = 600;
@@ -108,7 +108,7 @@ function gradeQuiz() {
     var score = 0;
     var detailsHTML = "";
 
-    // Question 1: Fill in blank (SERP)
+    // Question 1: Easy - Fill in blank (SERP)
     var q1Field = document.getElementById("q1");
     var q1Val = q1Field ? q1Field.value.trim().toLowerCase() : "";
     if (q1Val === "search engine results page" || q1Val === "search engine results pages" || q1Val === "search engine result page") {
@@ -118,94 +118,94 @@ function gradeQuiz() {
         detailsHTML += "<p style='color: red;'><strong>Question 1:</strong> Incorrect (0) - You wrote: '" + (q1Val || "blank") + "'. Correct answer: Search Engine Results Page</p>";
     }
 
-    // Question 2: Fill in blank (alt)
+    // Question 2: Easy - Fill in blank (Organic Search)
     var q2Field = document.getElementById("q2");
     var q2Val = q2Field ? q2Field.value.trim().toLowerCase() : "";
-    if (q2Val === "alt" || q2Val === "alt text" || q2Val === "alt attribute") {
+    if (q2Val === "organic search" || q2Val === "organic" || q2Val === "organic searches") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 2:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 2:</strong> Incorrect (0) - You wrote: '" + (q2Val || "blank") + "'. Correct answer: alt</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 2:</strong> Incorrect (0) - You wrote: '" + (q2Val || "blank") + "'. Correct answer: Organic Search</p>";
     }
 
-    // Question 3: Radio (301)
+    // Question 3: Medium - Radio (head)
     var q3Choice = document.querySelector('input[name="q3"]:checked');
     var q3Val = q3Choice ? q3Choice.value : "None";
-    if (q3Val === "301") {
+    if (q3Val === "head") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 3:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 3:</strong> Incorrect (0) - Selected: " + q3Val + ". Correct answer: 301</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 3:</strong> Incorrect (0) - Selected: " + q3Val + ". Correct answer: In the HTML &lt;head&gt;</p>";
     }
 
-    // Question 4: Radio (head)
+    // Question 4: Medium - Radio (investigational)
     var q4Choice = document.querySelector('input[name="q4"]:checked');
     var q4Val = q4Choice ? q4Choice.value : "None";
-    if (q4Val === "head") {
+    if (q4Val === "investigational") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 4:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 4:</strong> Incorrect (0) - Selected: " + q4Val + ". Correct answer: Inside the &lt;head&gt; section</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 4:</strong> Incorrect (0) - Selected: " + q4Val + ". Correct answer: Investigational</p>";
     }
 
-    // Question 5: Radio (1)
+    // Question 5: Medium-Hard - Radio (inp)
     var q5Choice = document.querySelector('input[name="q5"]:checked');
     var q5Val = q5Choice ? q5Choice.value : "None";
-    if (q5Val === "1") {
+    if (q5Val === "inp") {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 5:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 5:</strong> Incorrect (0) - Selected: " + q5Val + ". Correct answer: 1 main heading</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 5:</strong> Incorrect (0) - Selected: " + q5Val + ". Correct answer: Interaction to Next Paint (INP)</p>";
     }
 
-    // Question 6: Checkboxes (meta, headings, urls)
+    // Question 6: Medium-Hard - Checkboxes (discovery, crawling, rendering, analysis)
     var q6Ans = getCheckedValues("q6");
-    var q6Correct = ["meta", "headings", "urls"];
+    var q6Correct = ["discovery", "crawling", "rendering", "analysis"];
     if (arraysEqual(q6Ans, q6Correct)) {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 6:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 6:</strong> Incorrect (0) - Correct choices: Meta descriptions, Headings, and Short URL slugs</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 6:</strong> Incorrect (0) - Correct choices: Discovery, Crawling, Rendering, and Analysis</p>";
     }
 
-    // Question 7: Checkboxes (root, guide, syntax)
+    // Question 7: Medium-Hard - Checkboxes (nodes, edges, depth)
     var q7Ans = getCheckedValues("q7");
-    var q7Correct = ["root", "guide", "syntax"];
+    var q7Correct = ["nodes", "edges", "depth"];
     if (arraysEqual(q7Ans, q7Correct)) {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 7:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 7:</strong> Incorrect (0) - Correct choices: Root directory, Guides crawlers, and Disallow/User-agent syntax</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 7:</strong> Incorrect (0) - Correct choices: Views webpages as nodes, Views hyperlinks as edges, and Internal linking minimizes click depth</p>";
     }
 
-    // Question 8: Checkboxes (compress, minify, cache)
+    // Question 8: Hard - Checkboxes (dimensions, splitting, deferring)
     var q8Ans = getCheckedValues("q8");
-    var q8Correct = ["compress", "minify", "cache"];
+    var q8Correct = ["dimensions", "splitting", "deferring"];
     if (arraysEqual(q8Ans, q8Correct)) {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 8:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 8:</strong> Incorrect (0) - Correct choices: Compress images, Minify files, and Browser caching</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 8:</strong> Incorrect (0) - Correct choices: Declaring dimensions for CLS, Splitting JS tasks for INP, and Deferring non-essential scripts</p>";
     }
 
-    // Question 9: Checkboxes (cloaking, hidden, buying)
+    // Question 9: Hard - Checkboxes (error404, redirect, filters, consolidation)
     var q9Ans = getCheckedValues("q9");
-    var q9Correct = ["cloaking", "hidden", "buying"];
+    var q9Correct = ["error404", "redirect", "filters", "consolidation"];
     if (arraysEqual(q9Ans, q9Correct)) {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 9:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 9:</strong> Incorrect (0) - Correct choices: Cloaking, Hidden text, and Buying spam links</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 9:</strong> Incorrect (0) - Correct choices: All 4 choices apply to the automotive crawl budget case</p>";
     }
 
-    // Question 10: Checkboxes (map, dates, gsc)
+    // Question 10: Hard - Checkboxes (json, unstructured, knowledge, natural)
     var q10Ans = getCheckedValues("q10");
-    var q10Correct = ["map", "dates", "gsc"];
+    var q10Correct = ["json", "unstructured", "knowledge", "natural"];
     if (arraysEqual(q10Ans, q10Correct)) {
         score++;
         detailsHTML += "<p style='color: green;'><strong>Question 10:</strong> Correct! (+1)</p>";
     } else {
-        detailsHTML += "<p style='color: red;'><strong>Question 10:</strong> Incorrect (0) - Correct choices: List of URLs, Last modified dates, and Submit in Search Console</p>";
+        detailsHTML += "<p style='color: red;'><strong>Question 10:</strong> Incorrect (0) - Correct choices: Injects JSON into head, Car schema turns unstructured page into explicit attributes, Feeds knowledge graphs, and Eliminates natural language ambiguity</p>";
     }
 
     // Pass / Fail status (70% or 7/10)
