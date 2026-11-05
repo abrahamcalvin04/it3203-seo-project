@@ -50,13 +50,107 @@
             <fieldset>
                 <legend><strong>Question 3 (Multiple Choice)</strong></legend>
                 <p>According to the key concepts and homepage notes, where in the HTML document should a canonical tag be placed?</p>
-                <label><input type="radio" name="q3" value="head"> In the HTML &lt;head&gt;</label><br>
-                <label><input type="radio" name="q3" value="body"> Anywhere in the &lt;body&gt;</label><br>
-                <label><input type="radio" name="q3" value="footer"> Inside the &lt;footer&gt;</label><br>
+                <label><input type="radio" name="q3" value="head"> In the HTML head section</label><br>
+                <label><input type="radio" name="q3" value="body"> Anywhere in the body section</label><br>
+                <label><input type="radio" name="q3" value="footer"> Inside the footer section</label><br>
                 <label><input type="radio" name="q3" value="server"> In the server access log only</label>
             </fieldset>
 
             <!-- Question 4: Multiple Choice Radio -->
             <fieldset>
                 <legend><strong>Question 4 (Multiple Choice)</strong></legend>
-                <p>On the Semantic SEO page intent classification table,
+                <p>On the Semantic SEO page intent classification table, which intent category describes users whose primary goal is to compare options?</p>
+                <label><input type="radio" name="q4" value="informational"> Informational</label><br>
+                <label><input type="radio" name="q4" value="navigational"> Navigational</label><br>
+                <label><input type="radio" name="q4" value="investigational"> Investigational</label><br>
+                <label><input type="radio" name="q4" value="transactional"> Transactional</label>
+            </fieldset>
+
+            <!-- Question 5: Multiple Choice Radio -->
+            <fieldset>
+                <legend><strong>Question 5 (Multiple Choice)</strong></legend>
+                <p>According to the Core Web Vitals section on the Key Concepts page, which specific metric is responsible for assessing responsiveness by measuring input latency during a session?</p>
+                <label><input type="radio" name="q5" value="inp"> Interaction to Next Paint (INP)</label><br>
+                <label><input type="radio" name="q5" value="lcp"> Largest Contentful Paint (LCP)</label><br>
+                <label><input type="radio" name="q5" value="cls"> Cumulative Layout Shift (CLS)</label><br>
+                <label><input type="radio" name="q5" value="ttfb"> Time to First Byte (TTFB)</label>
+            </fieldset>
+
+            <!-- Question 6: Multi-Selection Checkbox -->
+            <fieldset>
+                <legend><strong>Question 6 (Select all that apply)</strong></legend>
+                <p>According to the Search Engine Pipeline section on the Technical SEO page, which of the following are the four technical stages webpages navigate before they can be ranked?</p>
+                <label><input type="checkbox" name="q6" value="discovery"> Discovery</label><br>
+                <label><input type="checkbox" name="q6" value="crawling"> Crawling</label><br>
+                <label><input type="checkbox" name="q6" value="rendering"> Rendering</label><br>
+                <label><input type="checkbox" name="q6" value="monetization"> Monetization</label><br>
+                <label><input type="checkbox" name="q6" value="analysis"> Analysis</label>
+            </fieldset>
+
+            <!-- Question 7: Multi-Selection Checkbox -->
+            <fieldset>
+                <legend><strong>Question 7 (Select all that apply)</strong></legend>
+                <p>According to the PageRank explanation on the Key Concepts page, how does the mathematical graph view the web structure?</p>
+                <label><input type="checkbox" name="q7" value="nodes"> Views webpages as nodes</label><br>
+                <label><input type="checkbox" name="q7" value="edges"> Views hyperlinks as edges</label><br>
+                <label><input type="checkbox" name="q7" value="unreachable"> It intentionally creates unreachable orphan pages</label><br>
+                <label><input type="checkbox" name="q7" value="depth"> Internal linking minimizes click depth and dictates authority flow</label>
+            </fieldset>
+
+            <!-- Question 8: Multi-Selection Checkbox -->
+            <fieldset>
+                <legend><strong>Question 8 (Select all that apply)</strong></legend>
+                <p>According to the Technical SEO Optimization section, which specific techniques are mentioned to improve front-end and technical performance?</p>
+                <label><input type="checkbox" name="q8" value="dimensions"> Declaring width and height dimensions on images and dynamic banners to optimize CLS</label><br>
+                <label><input type="checkbox" name="q8" value="splitting"> Splitting JavaScript tasks and offloading complex calculations to optimize INP</label><br>
+                <label><input type="checkbox" name="q8" value="deferring"> Deferring non-essential tracking scripts</label><br>
+                <label><input type="checkbox" name="q8" value="blocking"> Forcing all client-side scripts to run synchronously on the main thread</label>
+            </fieldset>
+
+            <!-- Question 9: Multi-Selection Checkbox -->
+            <fieldset>
+                <legend><strong>Question 9 (Select all that apply)</strong></legend>
+                <p>In the real-world automotive example described on the Technical SEO page, what technical challenges and solutions are discussed?</p>
+                <label><input type="checkbox" name="q9" value="error404"> Removing a sold vehicle detail page can result in a 404 error that wastes space</label><br>
+                <label><input type="checkbox" name="q9" value="redirect"> Implementing automated redirects to keep buyers on the website</label><br>
+                <label><input type="checkbox" name="q9" value="filters"> Generating unique filter URLs can exhaust the domain crawl budget if not managed</label><br>
+                <label><input type="checkbox" name="q9" value="consolidation"> Low-value filter URLs can be blocked or consolidated so high-value pages are visited more often</label>
+            </fieldset>
+
+            <!-- Question 10: Multi-Selection Checkbox -->
+            <fieldset>
+                <legend><strong>Question 10 (Select all that apply)</strong></legend>
+                <p>According to the Topical Clusters and Structured Data sections on the Semantic SEO and Concepts pages, what are the properties of structured data?</p>
+                <label><input type="checkbox" name="q10" value="json"> Developers inject JSON structured data scripts into the HTML head</label><br>
+                <label><input type="checkbox" name="q10" value="unstructured"> A car schema turns an unstructured page into explicit attributes for search engines</label><br>
+                <label><input type="checkbox" name="q10" value="knowledge"> Feeds search engine knowledge graphs and unlocks enhanced visual SERP features</label><br>
+                <label><input type="checkbox" name="q10" value="natural"> It eliminates natural language ambiguity for search engine parsers</label>
+            </fieldset>
+
+            <!-- submit and reset buttons -->
+            <div class="quiz-buttons">
+                <button type="button" id="submitBtn" class="quiz-btn">Submit Quiz</button>
+                <button type="button" id="resetBtn" class="quiz-btn">Reset Quiz</button>
+            </div>
+        </form>
+
+        <!-- results section (hidden by default) -->
+        <div id="results">
+            <h2>Assessment Results</h2>
+            <div id="summary"></div>
+            <hr>
+            <h3>Question Breakdown:</h3>
+            <div id="details"></div>
+        </div>
+
+    </main>
+
+    <!-- footer required for class -->
+    <footer>
+        <p>This is a class project. Visit the <a href="https://ksuweb.github.io/IT3203/" target="_blank" rel="noopener noreferrer">IT 3203 class website</a>.</p>
+    </footer>
+
+    <!-- linking the quiz javascript file -->
+    <script src="quiz.js"></script>
+</body>
+</html>
